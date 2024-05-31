@@ -35,7 +35,7 @@ def calculate_buy_fix_sell(request):
             else:
                 total_mortgage_payments = 0
 
-            total_investment = (initial_payment/100 * property_cost) + remodel_cost + total_mortgage_payments
+            total_investment = initial_payment + remodel_cost + total_mortgage_payments #(initial_payment/100 * property_cost)
             profit_sell = selling_price - total_investment
             roi_percentage = (profit_sell / total_investment) * 100
 
@@ -73,7 +73,7 @@ def calculate_buy_fix_rent(request):
                 annual_rent_income = monthly_rent * 12
                 annual_profit_rent = annual_rent_income - annual_mortgage_payment
 
-                total_investment = (initial_payment/100 * property_cost) + remodel_cost
+                total_investment = initial_payment + remodel_cost #(initial_payment/100 * property_cost)
                 roi_percentage = (annual_profit_rent / total_investment) * 100
 
                 return JsonResponse({
