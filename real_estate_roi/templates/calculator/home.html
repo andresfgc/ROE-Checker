@@ -11,170 +11,194 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </head>
 <body>
-
-<div class="container">
-    <div class="text-center">
-        <h1>ROI Checker</h1>
-        <p class="lead">Calculate the return on investment for Buy-to-Sell and/or Buy-to-Rent scenarios</p>
-    </div>
-    <div class="row">
-        <div class="mb-5 col-md-6 equal-height">
-            <div class="card h-100">
-                <div class="card-header text-center">
-                    Buy-to-Sell Scenario
+    <div class="container">
+        <!-- <div class="row flex-lg-row-reverse align-items-center g-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+              <img src="{% static 'images/home_background_2.jpg' %}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+              <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">ROI Checker - fast and easy</h1>
+              <p class="lead">Calculate the return on investment for Buy-to-Sell and/or Buy-to-Rent scenarios.</p>
+            </div>
+        </div> -->
+        <div class="mx-2 mb-2 text-center border-bottom">
+            <h1 class="display-4 fw-bold text-body-emphasis">ROI fast and easy</h1>
+            <div class="col-lg-6 mx-auto">
+                <p class="lead mb-0">Calculate the return on investment for Buy-to-Sell and/or Buy-to-Rent scenarios.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-5 col-md-6 equal-height">
+                <div class="card h-100">
+                    <div class="card-header text-center">
+                        Buy-to-Sell Scenario
+                    </div>
+                    <div class="card-body">
+                        <form id="buy-fix-sell-form">
+                            {% csrf_token %}
+                            <div class="form-group pb-3">
+                                <input type="number" class="form-control text-center" id="property_cost" name="property_cost" placeholder="Enter property cost" required data-bs-toggle="tooltip" data-bs-title="E.g. 100000">
+                            </div>
+                            <div class="form-group pb-3">
+                                <input type="number" class="form-control text-center" id="initial_payment" name="initial_payment" placeholder="Enter initial payment percentage" data-bs-toggle="tooltip" data-bs-title="E.g. 30">
+                            </div>
+                            <div class="form-group pb-3">
+                                <input type="number" step="0.01" class="form-control text-center" id="annual_interest_rate" name="annual_interest_rate" placeholder="Enter annual interest rate (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 5">
+                            </div>
+                            <div class="form-group pb-3">
+                                <input type="number" class="form-control text-center" id="mortgage_term_years" name="mortgage_term_years" placeholder="Enter mortgage term in years (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 20">
+                            </div>
+                            <div class="form-group pb-3">
+                                <input type="number" class="form-control text-center" id="remodel_cost" name="remodel_cost" placeholder="Enter remodel cost (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 5000">
+                            </div>
+                            <div class="form-group pb-3">
+                                <input type="number" class="form-control text-center" id="selling_price" name="selling_price" placeholder="Enter expected selling price" required data-bs-toggle="tooltip" data-bs-title="E.g. 120000">
+                            </div>
+                            <div class="form-group pb-3">
+                                <input type="number" class="form-control text-center" id="years_to_sell" name="years_to_sell" placeholder="Enter years to sell (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 5">
+                            </div>
+                            <div class="d-grid col-6 mx-auto">
+                                <button type="button" id="calculate-buy-fix-sell" class="btn btn-primary">Calculate</button>
+                            </div>
+                        </form>
+                        <div id="buy-fix-sell-results" class="results d-grid col-6 mx-auto text-center"></div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form id="buy-fix-sell-form">
-                        {% csrf_token %}
-                        <div class="form-group pb-3">
-                            <input type="number" class="form-control" id="property_cost" name="property_cost" placeholder="Enter property cost" required data-bs-toggle="tooltip" data-bs-title="E.g. 100000">
-                        </div>
-                        <div class="form-group pb-3">
-                            <input type="number" class="form-control" id="initial_payment" name="initial_payment" placeholder="Enter initial payment percentage" data-bs-toggle="tooltip" data-bs-title="E.g. 30">
-                        </div>
-                        <div class="form-group pb-3">
-                            <input type="number" step="0.01" class="form-control" id="annual_interest_rate" name="annual_interest_rate" placeholder="Enter annual interest rate (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 5">
-                        </div>
-                        <div class="form-group pb-3">
-                            <input type="number" class="form-control" id="mortgage_term_years" name="mortgage_term_years" placeholder="Enter mortgage term in years (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 20">
-                        </div>
-                        <div class="form-group pb-3">
-                            <input type="number" class="form-control" id="remodel_cost" name="remodel_cost" placeholder="Enter remodel cost (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 5000">
-                        </div>
-                        <div class="form-group pb-3">
-                            <input type="number" class="form-control" id="selling_price" name="selling_price" placeholder="Enter expected selling price" required data-bs-toggle="tooltip" data-bs-title="E.g. 120000">
-                        </div>
-                        <div class="form-group pb-3">
-                            <input type="number" class="form-control" id="years_to_sell" name="years_to_sell" placeholder="Enter years to sell (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 5">
-                        </div>
-                        <div class="d-grid col-6 mx-auto">
-                            <button type="button" id="calculate-buy-fix-sell" class="btn btn-primary">Calculate</button>
-                        </div>
-                    </form>
-                    <div id="buy-fix-sell-results" class="results d-grid col-6 mx-auto text-center"></div>
+            </div>
+            <div class="mb-5 col-md-6 equal-height">
+                <div class="card h-100">
+                    <div class="card-header text-center">
+                        Buy-to-Rent Scenario
+                    </div>
+                    <div class="card-body">
+                        <form id="buy-fix-rent-form">
+                            {% csrf_token %}
+                            <div class="form-group pb-3">
+                                <input type="number" class="form-control text-center" id="property_cost_rent" name="property_cost" placeholder="Enter property cost" required data-bs-toggle="tooltip" data-bs-title="E.g. 100000">
+                            </div>
+                            <div class="form-group pb-3">
+                                <input type="number" class="form-control text-center" id="initial_payment_rent" name="initial_payment" placeholder="Enter initial payment percentage" data-bs-toggle="tooltip" data-bs-title="E.g. 30">
+                            </div>
+                            <div class="form-group pb-3">
+                                <input type="number" step="0.01" class="form-control text-center" id="annual_interest_rate_rent" name="annual_interest_rate" placeholder="Enter annual interest rate (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 5">
+                            </div>
+                            <div class="form-group pb-3">
+                                <input type="number" class="form-control text-center" id="mortgage_term_years_rent" name="mortgage_term_years" placeholder="Enter mortgage term in years (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 20">
+                            </div>
+                            <div class="form-group pb-3">
+                                <input type="number" class="form-control text-center" id="remodel_cost_rent" name="remodel_cost" placeholder="Enter remodel cost (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 5000">
+                            </div>
+                            <div class="form-group pb-3">
+                                <input type="number" class="form-control text-center" id="monthly_rent" name="monthly_rent" placeholder="Enter expected monthly rent" required data-bs-toggle="tooltip" data-bs-title="E.g. 700">
+                            </div>
+                            <div class="calculate-margin d-grid col-6 mx-auto">
+                                <button type="button" id="calculate-buy-fix-rent" class="btn btn-primary">Calculate</button>
+                            </div>
+                        </form>
+                        <div id="buy-fix-rent-results" class="results d-grid col-6 mx-auto text-center"></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="mb-5 col-md-6 equal-height">
-            <div class="card h-100">
-                <div class="card-header text-center">
-                    Buy-to-Rent Scenario
-                </div>
-                <div class="card-body">
-                    <form id="buy-fix-rent-form">
-                        {% csrf_token %}
-                        <div class="form-group pb-3">
-                            <input type="number" class="form-control" id="property_cost_rent" name="property_cost" placeholder="Enter property cost" required data-bs-toggle="tooltip" data-bs-title="E.g. 100000">
-                        </div>
-                        <div class="form-group pb-3">
-                            <input type="number" class="form-control" id="initial_payment_rent" name="initial_payment" placeholder="Enter initial payment percentage" data-bs-toggle="tooltip" data-bs-title="E.g. 30">
-                        </div>
-                        <div class="form-group pb-3">
-                            <input type="number" step="0.01" class="form-control" id="annual_interest_rate_rent" name="annual_interest_rate" placeholder="Enter annual interest rate (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 5">
-                        </div>
-                        <div class="form-group pb-3">
-                            <input type="number" class="form-control" id="mortgage_term_years_rent" name="mortgage_term_years" placeholder="Enter mortgage term in years (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 20">
-                        </div>
-                        <div class="form-group pb-3">
-                            <input type="number" class="form-control" id="remodel_cost_rent" name="remodel_cost" placeholder="Enter remodel cost (optional)" data-bs-toggle="tooltip" data-bs-title="E.g. 5000">
-                        </div>
-                        <div class="form-group pb-3">
-                            <input type="number" class="form-control" id="monthly_rent" name="monthly_rent" placeholder="Enter expected monthly rent" required data-bs-toggle="tooltip" data-bs-title="E.g. 700">
-                        </div>
-                        <div class="mt-5 d-grid col-6 mx-auto">
-                            <button type="button" id="calculate-buy-fix-rent" class="btn btn-primary">Calculate</button>
-                        </div>
-                    </form>
-                    <div id="buy-fix-rent-results" class="results d-grid col-6 mx-auto text-center"></div>
-                </div>
-            </div>
-        </div>
     </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-$(document).ready(function() {
-    function displayErrors(formSelector, resultSelector, errors) {
-        var errorMessage = '<p>Calculation couldn\'t be made because the following fields are missing or incorrect:</p><ul>';
-        for (var field in errors) {
-            errorMessage += '<li>' + field + ': ' + errors[field] + '</li>';
-        }
-        errorMessage += '</ul>';
-        $(resultSelector).html(errorMessage);
-    }
-
-    $('#calculate-buy-fix-sell').click(function() {
-        var formData = {
-            'property_cost': $('#property_cost').val(),
-            'initial_payment': $('#initial_payment').val(),
-            'annual_interest_rate': $('#annual_interest_rate').val(),
-            'mortgage_term_years': $('#mortgage_term_years').val(),
-            'remodel_cost': $('#remodel_cost').val(),
-            'selling_price': $('#selling_price').val(),
-            'years_to_sell': $('#years_to_sell').val(),
-            'csrfmiddlewaretoken': $('#buy-fix-sell-form input[name="csrfmiddlewaretoken"]').val()
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: '/calculate-buy-fix-sell/',
-            data: formData,
-            success: function(data) {
-                if (data.profit_sell !== undefined && data.roi_percentage !== undefined) {
-                    $('#buy-fix-sell-results').html('<p>Profit: $' + data.profit_sell.toFixed(2) + '</p><p>ROI: ' + data.roi_percentage.toFixed(2) + '%</p>');
-                } else {
-                    $('#buy-fix-sell-results').html('<p>Invalid response from server.</p>');
-                }
-            },
-            error: function(xhr) {
-                var errorDetails = JSON.parse(xhr.responseText);
-                if (errorDetails.error === 'Invalid form') {
-                    displayErrors('#buy-fix-sell-form', '#buy-fix-sell-results', errorDetails.details);
-                } else {
-                    $('#buy-fix-sell-results').html('<p>An error occurred. Please try again.</p>');
-                }
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        function displayErrors(formSelector, resultSelector, errors) {
+            var errorMessage = '<p>Calculation couldn\'t be made because the following fields are missing or incorrect:</p><ul>';
+            for (var field in errors) {
+                errorMessage += '<li>' + field + ': ' + errors[field] + '</li>';
             }
-        });
-    });
+            errorMessage += '</ul>';
+            $(resultSelector).html(errorMessage);
+        }
 
-    $('#calculate-buy-fix-rent').click(function() {
-        var formData = {
-            'property_cost': $('#property_cost_rent').val(),
-            'initial_payment': $('#initial_payment_rent').val(),
-            'annual_interest_rate': $('#annual_interest_rate_rent').val(),
-            'mortgage_term_years': $('#mortgage_term_years_rent').val(),
-            'remodel_cost': $('#remodel_cost_rent').val(),
-            'monthly_rent': $('#monthly_rent').val(),
-            'csrfmiddlewaretoken': $('#buy-fix-rent-form input[name="csrfmiddlewaretoken"]').val()
-        };
+        function validateInitialPayment(payment) {
+            return payment > 0 && payment <= 100;
+        }
 
-        $.ajax({
-            type: 'POST',
-            url: '/calculate-buy-fix-rent/',
-            data: formData,
-            success: function(data) {
-                if (data.annual_profit_rent !== undefined && data.roi_percentage !== undefined) {
-                    $('#buy-fix-rent-results').html('<p>Profit: $' + data.annual_profit_rent.toFixed(2) + '</p><p>ROI: ' + data.roi_percentage.toFixed(2) + '%</p>');
-                } else {
-                    $('#buy-fix-rent-results').html('<p>Invalid response from server.</p>');
+        $('#calculate-buy-fix-sell').click(function() {
+            var initialPayment = $('#initial_payment').val();
+
+            if (!validateInitialPayment(initialPayment)) {
+                $('#buy-fix-sell-results').html('<p>Initial payment percentage must be greater than 0 and less than or equal to 100.</p>');
+                return;
+            }
+
+            var formData = {
+                'property_cost': $('#property_cost').val(),
+                'initial_payment': initialPayment,
+                'annual_interest_rate': $('#annual_interest_rate').val(),
+                'mortgage_term_years': $('#mortgage_term_years').val(),
+                'remodel_cost': $('#remodel_cost').val(),
+                'selling_price': $('#selling_price').val(),
+                'years_to_sell': $('#years_to_sell').val(),
+                'csrfmiddlewaretoken': $('#buy-fix-sell-form input[name="csrfmiddlewaretoken"]').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/calculate-buy-fix-sell/',
+                data: formData,
+                success: function(data) {
+                    if (data.profit_sell !== undefined && data.roi_percentage !== undefined) {
+                        $('#buy-fix-sell-results').html('<p>Profit: $' + data.profit_sell.toFixed(2) + '</p><p>ROI: ' + data.roi_percentage.toFixed(2) + '%</p>');
+                    } else {
+                        $('#buy-fix-sell-results').html('<p>Invalid response from server.</p>');
+                    }
+                },
+                error: function(xhr) {
+                    var errorDetails = JSON.parse(xhr.responseText);
+                    if (errorDetails.error === 'Invalid form') {
+                        displayErrors('#buy-fix-sell-form', '#buy-fix-sell-results', errorDetails.details);
+                    } else {
+                        $('#buy-fix-sell-results').html('<p>An error occurred. Please try again.</p>');
+                    }
                 }
-            },
-            error: function(xhr) {
-                try {
+            });
+        });
+
+        $('#calculate-buy-fix-rent').click(function() {
+            var initialPaymentRent = $('#initial_payment_rent').val();
+
+            if (!validateInitialPayment(initialPaymentRent)) {
+                $('#buy-fix-rent-results').html('<p>Initial payment percentage must be greater than 0 and less than or equal to 100.</p>');
+                return;
+            }
+
+            var formData = {
+                'property_cost': $('#property_cost_rent').val(),
+                'initial_payment': initialPaymentRent,
+                'annual_interest_rate': $('#annual_interest_rate_rent').val(),
+                'mortgage_term_years': $('#mortgage_term_years_rent').val(),
+                'remodel_cost': $('#remodel_cost_rent').val(),
+                'monthly_rent': $('#monthly_rent').val(),
+                'csrfmiddlewaretoken': $('#buy-fix-rent-form input[name="csrfmiddlewaretoken"]').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/calculate-buy-fix-rent/',
+                data: formData,
+                success: function(data) {
+                    if (data.annual_profit_rent !== undefined && data.roi_percentage !== undefined) {
+                        $('#buy-fix-rent-results').html('<p>Profit: $' + data.annual_profit_rent.toFixed(2) + '</p><p>ROI: ' + data.roi_percentage.toFixed(2) + '%</p>');
+                    } else {
+                        $('#buy-fix-rent-results').html('<p>Invalid response from server.</p>');
+                    }
+                },
+                error: function(xhr) {
                     var errorDetails = JSON.parse(xhr.responseText);
                     if (errorDetails.error === 'Invalid form') {
                         displayErrors('#buy-fix-rent-form', '#buy-fix-rent-results', errorDetails.details);
                     } else {
-                        $('#buy-fix-rent-results').html('<p>' + errorDetails.details + '</p>');
+                        $('#buy-fix-rent-results').html('<p>An error occurred. Please try again.</p>');
                     }
-                } catch (e) {
-                    $('#buy-fix-rent-results').html('<p>An error occurred. Please try again.</p>');
                 }
-            }
+            });
         });
     });
-});
-</script>
-<script src="{% static 'js/main.js' %}"></script>
+    </script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

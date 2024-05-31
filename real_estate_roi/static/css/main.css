@@ -3,6 +3,16 @@ body {
   font-family: Arial, sans-serif;
 }
 
+
+/* Image Background */
+.home_background {
+  background: url(../images/home_background_2.jpg) fixed center center no-repeat;
+  -webkit-background-size:cover;
+  -moz-background-size:cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 /* Forms */
 
 .container {
@@ -27,6 +37,10 @@ body {
   height: 77vh;
 }
 
+.calculate-margin {
+  margin-top: 54px;
+
+}
 
 /* Tooltip */
 
@@ -46,4 +60,12 @@ body {
   border-width: 10px;
   border-top-color: #ccc;
   border-bottom-color: transparent;
+}
+
+/* Result field */
+.results-card {
+  background-color: #e2e3e5; /* Light grey background */
+  border-radius: 0.25rem; /* Rounded corners */
+  padding: 1rem;
+  margin-top: 1rem;
 }
