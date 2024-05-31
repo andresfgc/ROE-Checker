@@ -1,0 +1,9 @@
+.env
+core.Microsoft*
+core.mongo*
+code-python*
+_pycache_/
+*.py[cod]
+node_modules/
+.github/
+*.sqlite3
