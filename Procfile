@@ -1,0 +1,1 @@
+web: gunicorn --chdir real_estate_roi real_estate_roi.wsgi --log-file -
