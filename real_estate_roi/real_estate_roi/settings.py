@@ -15,6 +15,8 @@ import whitenoise
 from decouple import config
 from pathlib import Path
 
+development = config('DEVELOPMENT', default=False, cast=bool)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
@@ -25,12 +27,15 @@ from django.contrib import messages
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-iua%*!vv)_qbzd%@25xba0rxm*(eu+i&oaj)#xu93bu^y99q2k'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = development
 
-ALLOWED_HOSTS = []
+if development:
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWED_HOSTS = ['roi-checker-99ddcdcd300c.herokuapp.com']
 
 
 # Application definition
