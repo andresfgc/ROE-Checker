@@ -25,7 +25,7 @@ def calculate_buy_fix_sell(request):
             mortgage_term_years = data.get('mortgage_term_years') or 0
             years_to_sell = data.get('years_to_sell', 0) or 0
 
-            if initial_payment and annual_interest_rate and mortgage_term_years:
+            if initial_payment != 100:
                 initial_payment = initial_payment / 100 * property_cost
                 loan_amount = property_cost - initial_payment
                 monthly_interest_rate = annual_interest_rate / 100 / 12
@@ -35,7 +35,7 @@ def calculate_buy_fix_sell(request):
             else:
                 total_mortgage_payments = 0
 
-            total_investment = initial_payment + remodel_cost + total_mortgage_payments
+            total_investment = (initial_payment/100 * property_cost) + remodel_cost + total_mortgage_payments
             profit_sell = selling_price - total_investment
             roi_percentage = (profit_sell / total_investment) * 100
 
@@ -60,7 +60,7 @@ def calculate_buy_fix_rent(request):
             mortgage_term_years = data.get('mortgage_term_years') or 0
 
             try:
-                if initial_payment and annual_interest_rate and mortgage_term_years:
+                if initial_payment != 100:
                     initial_payment = initial_payment / 100 * property_cost
                     loan_amount = property_cost - initial_payment
                     monthly_interest_rate = annual_interest_rate / 100 / 12
@@ -73,7 +73,7 @@ def calculate_buy_fix_rent(request):
                 annual_rent_income = monthly_rent * 12
                 annual_profit_rent = annual_rent_income - annual_mortgage_payment
 
-                total_investment = initial_payment + remodel_cost
+                total_investment = (initial_payment/100 * property_cost) + remodel_cost
                 roi_percentage = (annual_profit_rent / total_investment) * 100
 
                 return JsonResponse({

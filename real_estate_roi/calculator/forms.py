@@ -2,7 +2,7 @@ from django import forms
 
 class BuyFixSellForm(forms.Form):
     property_cost = forms.FloatField(required=True)
-    initial_payment = forms.FloatField(required=False)
+    initial_payment = forms.FloatField(required=True)
     annual_interest_rate = forms.FloatField(required=False)
     mortgage_term_years = forms.IntegerField(required=False)
     remodel_cost = forms.FloatField(required=False)
@@ -11,7 +11,7 @@ class BuyFixSellForm(forms.Form):
 
 class BuyFixRentForm(forms.Form):
     property_cost = forms.FloatField(required=True)
-    initial_payment = forms.FloatField(required=False)
+    initial_payment = forms.FloatField(required=True)
     annual_interest_rate = forms.FloatField(required=False)
     mortgage_term_years = forms.IntegerField(required=False)
     remodel_cost = forms.FloatField(required=False)

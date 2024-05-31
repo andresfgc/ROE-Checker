@@ -2,6 +2,9 @@ body {
   background-color: #f8f9fa;
   font-family: Arial, sans-serif;
 }
+
+/* Forms */
+
 .container {
   margin-top: 50px;
 }
@@ -22,4 +25,25 @@ body {
 
 .equal-height {
   height: 77vh;
+}
+
+
+/* Tooltip */
+
+.tooltip-inner {
+  background-color: #3b3838;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 10px 15px;
+}
+
+.tooltip.bs-tooltip-top .arrow::before {
+  border-top-color: #ccc;
+}
+
+.tooltip.bs-tooltip-auto[x-placement^="top"] .arrow::before,
+.tooltip.bs-tooltip-top .arrow::before {
+  border-width: 10px;
+  border-top-color: #ccc;
+  border-bottom-color: transparent;
 }
